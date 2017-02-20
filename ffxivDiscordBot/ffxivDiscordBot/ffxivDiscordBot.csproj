@@ -54,7 +54,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Classes\Discord.cs" />
+    <Compile Include="Classes\DiscordController.cs" />
     <Compile Include="Classes\HTTPRequest.cs" />
     <Compile Include="Forms\mainForm.cs">
       <SubType>Form</SubType>

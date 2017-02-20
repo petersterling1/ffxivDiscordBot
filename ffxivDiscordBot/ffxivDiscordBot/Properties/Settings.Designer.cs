@@ -94,5 +94,50 @@ namespace ffxivDiscordBot.Properties {
                 this["systemTray"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        public global::System.Drawing.Color notificationColor {
+            get {
+                return ((global::System.Drawing.Color)(this["notificationColor"]));
+            }
+            set {
+                this["notificationColor"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("ControlText")]
+        public global::System.Drawing.Color textColor {
+            get {
+                return ((global::System.Drawing.Color)(this["textColor"]));
+            }
+            set {
+                this["textColor"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        public global::System.Drawing.Color textBackgroundColor {
+            get {
+                return ((global::System.Drawing.Color)(this["textBackgroundColor"]));
+            }
+            set {
+                this["textBackgroundColor"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        public global::System.Drawing.Color usernameColor {
+            get {
+                return ((global::System.Drawing.Color)(this["usernameColor"]));
+            }
+            set {
+                this["usernameColor"] = value;
+            }
+        }
     }
 }

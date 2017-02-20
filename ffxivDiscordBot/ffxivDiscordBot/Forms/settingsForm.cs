@@ -26,6 +26,12 @@ namespace ffxivDiscordBot
 
             checkboxDisconnect.Checked = Properties.Settings.Default.reconnect;
             checkboxSystemTray.Checked = Properties.Settings.Default.systemTray;
+
+            pictureBoxNotifications.BackColor = Properties.Settings.Default.notificationColor;
+            pictureBoxForeground.BackColor = Properties.Settings.Default.textColor;
+            pictureBoxBackground.BackColor = Properties.Settings.Default.textBackgroundColor;
+            pictureBoxUsername.BackColor = Properties.Settings.Default.usernameColor;
+
     }
 
         private void settingsForm_FormClosing(object sender, FormClosingEventArgs e)
@@ -38,7 +44,15 @@ namespace ffxivDiscordBot
             Properties.Settings.Default.reconnect = checkboxDisconnect.Checked;
             Properties.Settings.Default.systemTray = checkboxSystemTray.Checked;
 
+            Properties.Settings.Default.notificationColor = pictureBoxNotifications.BackColor;
+            Properties.Settings.Default.textBackgroundColor = pictureBoxBackground.BackColor;
+            Properties.Settings.Default.textColor = pictureBoxForeground.BackColor;
+            Properties.Settings.Default.usernameColor = pictureBoxUsername.BackColor;
+
             Properties.Settings.Default.Save();
+
+            mainForm form = (mainForm) Application.OpenForms["mainForm"];
+            form.settingsFormClosed();
         }
 
         private void textboxBoxTrigger_TextChanged(object sender, EventArgs e)
@@ -47,6 +61,51 @@ namespace ffxivDiscordBot
             {
                 textboxBoxTrigger.Text = textboxBoxTrigger.Text.Substring(0, 1);
                 textboxBoxTrigger.SelectionStart = 1;
+            }
+        }
+
+        private void label1_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void buttonNotificationColor_Click(object sender, EventArgs e)
+        {
+            DialogResult result = colorDialog.ShowDialog();
+
+            if (result == DialogResult.OK)
+            {
+                pictureBoxNotifications.BackColor = colorDialog.Color;
+            }
+        }
+
+        private void buttonBackground_Click(object sender, EventArgs e)
+        {
+            DialogResult result = colorDialog.ShowDialog();
+
+            if (result == DialogResult.OK)
+            {
+                pictureBoxBackground.BackColor = colorDialog.Color;
+            }
+        }
+
+        private void buttonForeground_Click(object sender, EventArgs e)
+        {
+            DialogResult result = colorDialog.ShowDialog();
+
+            if (result == DialogResult.OK)
+            {
+                pictureBoxForeground.BackColor = colorDialog.Color;
+            }
+        }
+
+        private void buttonUsername_Click(object sender, EventArgs e)
+        {
+            DialogResult result = colorDialog.ShowDialog();
+
+            if (result == DialogResult.OK)
+            {
+                pictureBoxUsername.BackColor = colorDialog.Color;
             }
         }
     }

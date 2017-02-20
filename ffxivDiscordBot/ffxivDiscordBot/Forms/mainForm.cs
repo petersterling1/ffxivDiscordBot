@@ -13,11 +13,12 @@ namespace ffxivDiscordBot
     public partial class mainForm : Form
     {
 
-        private Discord discord = new Discord();
+        private Discord discord;
 
         public mainForm()
         {
             InitializeComponent();
+            
         }
 
         private void mainForm_Load(object sender, EventArgs e)
@@ -25,6 +26,23 @@ namespace ffxivDiscordBot
             notifyIcon.Icon = this.Icon;
             notifyIcon.Visible = false;
             notifyIcon.Text = this.Text;
+
+            discord = new Discord(this);
+
+            Properties.Settings.Default.Reset();
+
+            if (Properties.Settings.Default.notificationColor == Color.Empty) Properties.Settings.Default.notificationColor = Color.DarkGreen;
+
+            if (Properties.Settings.Default.textColor == Color.Empty) Properties.Settings.Default.textColor = SystemColors.WindowText;
+
+            if (Properties.Settings.Default.textBackgroundColor == Color.Empty) Properties.Settings.Default.textBackgroundColor = SystemColors.Window;
+
+            if (Properties.Settings.Default.usernameColor == Color.Empty) Properties.Settings.Default.usernameColor = Color.DarkBlue;
+
+            textboxStatus.ForeColor = Properties.Settings.Default.textColor;
+            textboxStatus.BackColor = Properties.Settings.Default.textBackgroundColor;
+
+            Properties.Settings.Default.Save();
         }
 
         private void mainForm_Resize(object sender, EventArgs e)
@@ -34,7 +52,7 @@ namespace ffxivDiscordBot
                 notifyIcon.Visible = true;
                 this.Hide();
             }
-            else  if(FormWindowState.Normal == this.WindowState)
+            else if (FormWindowState.Normal == this.WindowState)
             {
                 notifyIcon.Visible = false;
                 textboxStatus.Width = this.Width - 40;
@@ -50,11 +68,65 @@ namespace ffxivDiscordBot
 
         private void notifyIcon_DoubleClick(object sender, EventArgs e)
         {
-            if(this.WindowState == FormWindowState.Minimized)
+            if (this.WindowState == FormWindowState.Minimized)
             {
                 this.Show();
                 this.WindowState = FormWindowState.Normal;
             }
+        }
+
+        private void connectToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            discord.connect();
+        }
+
+        delegate void addTextboxTextCallback(String text, Color? color = null);
+        private void addTextboxText(String text, Color? color = null)
+        {
+            if(textboxStatus.InvokeRequired)
+            {
+                addTextboxTextCallback d = new addTextboxTextCallback(addTextboxText);
+                textboxStatus.Invoke(d, new object[] { text, color });
+                return;
+            }
+
+            textboxStatus.SelectionStart = textboxStatus.TextLength;
+            textboxStatus.SelectionLength = 0;
+
+            if(color != null) textboxStatus.SelectionColor = color ?? textboxStatus.ForeColor;
+            textboxStatus.AppendText(text);
+            textboxStatus.SelectionColor = textboxStatus.ForeColor;
+
+        }
+
+        public void settingsFormClosed()
+        {
+            textboxStatus.BackColor = Properties.Settings.Default.textBackgroundColor;
+            textboxStatus.ForeColor = Properties.Settings.Default.textColor;
+        }
+
+        public void addDiscordChatMessage(string username, string message)
+        {
+            addTextboxText(username + ": ", Properties.Settings.Default.usernameColor);
+            addTextboxText(message + "\n", Properties.Settings.Default.textColor);
+        }
+
+        public void changeConnectionStatus(bool status, String message)
+        {
+            addTextboxText(message + "\n", Properties.Settings.Default.notificationColor);
+
+            if (status)
+            {
+                connectionStatus.Text = "Connected";
+            }else{
+                connectionStatus.Text = "Disconnected";
+            }
+                    
+        }
+
+        private void disconnectToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            discord.disconnect();
         }
     }
 }

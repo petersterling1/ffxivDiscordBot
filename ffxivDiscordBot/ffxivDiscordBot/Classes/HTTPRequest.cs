@@ -15,12 +15,20 @@ namespace ffxivDiscordBot
 
         }
 
-        public String postRequest(string url, string json, string authorization = null)
+        public String postRequest(string url, string json, string authorization = null, Dictionary<string, string> customHeaders = null)
         {
             WebRequest wr = WebRequest.Create(url);
 
             if(authorization != null)
                 wr.Headers[HttpRequestHeader.Authorization] = authorization;
+
+            if (customHeaders != null)
+            {
+                foreach (KeyValuePair<string, string> header in customHeaders)
+                {
+                    wr.Headers[header.Key] = header.Value;
+                }
+            }
 
             wr.ContentType = "application/json; charset=utf-8";
             wr.Method = "POST";
@@ -46,7 +54,7 @@ namespace ffxivDiscordBot
             return result;
         }
 
-        public string getRequest(string url, string authorization = null)
+        public string getRequest(string url, string authorization = null, Dictionary<string, string> customHeaders = null)
         {
             WebRequest wr;
             Stream stream;
@@ -58,6 +66,14 @@ namespace ffxivDiscordBot
 
                 if (authorization != null)
                     wr.Headers[HttpRequestHeader.Authorization] = authorization;
+
+                if(customHeaders != null)
+                {
+                    foreach(KeyValuePair<string, string> header in customHeaders)
+                    {
+                        wr.Headers[header.Key] = header.Value;
+                    }
+                }
 
                 stream = wr.GetResponse().GetResponseStream();
                 reader = new StreamReader(stream);
