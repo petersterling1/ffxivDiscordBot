@@ -117,6 +117,7 @@
             this.Name = "mainForm";
             this.Text = "ffxivDiscordBot";
             this.Load += new System.EventHandler(this.mainForm_Load);
+            this.SizeChanged += new System.EventHandler(this.mainForm_SizeChanged);
             this.Resize += new System.EventHandler(this.mainForm_Resize);
             this.statusStrip.ResumeLayout(false);
             this.statusStrip.PerformLayout();

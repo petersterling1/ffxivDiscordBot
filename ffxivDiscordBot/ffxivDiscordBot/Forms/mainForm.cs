@@ -55,8 +55,6 @@ namespace ffxivDiscordBot
             else if (FormWindowState.Normal == this.WindowState)
             {
                 notifyIcon.Visible = false;
-                textboxStatus.Width = this.Width - 40;
-                textboxStatus.Height = this.Height - 100;
             }
         }
 
@@ -127,6 +125,12 @@ namespace ffxivDiscordBot
         private void disconnectToolStripMenuItem_Click(object sender, EventArgs e)
         {
             discord.disconnect();
+        }
+
+        private void mainForm_SizeChanged(object sender, EventArgs e)
+        {
+            textboxStatus.Width = this.Width - 40;
+            textboxStatus.Height = this.Height - 100;
         }
     }
 }
