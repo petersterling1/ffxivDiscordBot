@@ -27,5 +27,11 @@ namespace ffxivDiscordBot
             textboxStatus.Width = this.Width - 40;
             textboxStatus.Height = this.Height - 100;
         }
+
+        private void settingsToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            settingsForm sf = new settingsForm();
+            sf.Show();
+        }
     }
 }
