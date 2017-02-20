@@ -37,6 +37,7 @@
             this.groupBox4 = new System.Windows.Forms.GroupBox();
             this.textboxBoxTrigger = new System.Windows.Forms.TextBox();
             this.checkboxDisconnect = new System.Windows.Forms.CheckBox();
+            this.checkboxSystemTray = new System.Windows.Forms.CheckBox();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.groupBox3.SuspendLayout();
@@ -122,11 +123,22 @@
             this.checkboxDisconnect.Text = "Reconnect if disconnected from Discord";
             this.checkboxDisconnect.UseVisualStyleBackColor = true;
             // 
+            // checkboxSystemTray
+            // 
+            this.checkboxSystemTray.AutoSize = true;
+            this.checkboxSystemTray.Location = new System.Drawing.Point(158, 221);
+            this.checkboxSystemTray.Name = "checkboxSystemTray";
+            this.checkboxSystemTray.Size = new System.Drawing.Size(195, 17);
+            this.checkboxSystemTray.TabIndex = 6;
+            this.checkboxSystemTray.Text = "Send to system tray when minimized";
+            this.checkboxSystemTray.UseVisualStyleBackColor = true;
+            // 
             // settingsForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(552, 279);
+            this.Controls.Add(this.checkboxSystemTray);
             this.Controls.Add(this.checkboxDisconnect);
             this.Controls.Add(this.groupBox4);
             this.Controls.Add(this.groupBox3);
@@ -161,5 +173,6 @@
         private System.Windows.Forms.GroupBox groupBox4;
         private System.Windows.Forms.TextBox textboxBoxTrigger;
         private System.Windows.Forms.CheckBox checkboxDisconnect;
+        private System.Windows.Forms.CheckBox checkboxSystemTray;
     }
 }

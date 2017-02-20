@@ -82,5 +82,17 @@ namespace ffxivDiscordBot.Properties {
                 this["reconnect"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool systemTray {
+            get {
+                return ((bool)(this["systemTray"]));
+            }
+            set {
+                this["systemTray"] = value;
+            }
+        }
     }
 }

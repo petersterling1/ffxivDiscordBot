@@ -25,6 +25,7 @@ namespace ffxivDiscordBot
             textboxBoxTrigger.Text = Properties.Settings.Default.botTrigger;
 
             checkboxDisconnect.Checked = Properties.Settings.Default.reconnect;
+            checkboxSystemTray.Checked = Properties.Settings.Default.systemTray;
     }
 
         private void settingsForm_FormClosing(object sender, FormClosingEventArgs e)
@@ -35,6 +36,7 @@ namespace ffxivDiscordBot
             Properties.Settings.Default.botTrigger = textboxBoxTrigger.Text;
 
             Properties.Settings.Default.reconnect = checkboxDisconnect.Checked;
+            Properties.Settings.Default.systemTray = checkboxSystemTray.Checked;
 
             Properties.Settings.Default.Save();
         }
