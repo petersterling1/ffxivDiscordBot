@@ -39,7 +39,8 @@ namespace ffxivDiscordBot
             Properties.Settings.Default.discordToken = textboxDiscordToken.Text;
             Properties.Settings.Default.urbandictionaryToken = textboxUrbanDictionary.Text;
             Properties.Settings.Default.fflogsToken = textBoxFFLogsToken.Text;
-            Properties.Settings.Default.botTrigger = textboxBoxTrigger.Text;
+            if(textboxBoxTrigger.Text.Length != 0) Properties.Settings.Default.botTrigger = textboxBoxTrigger.Text;
+
 
             Properties.Settings.Default.reconnect = checkboxDisconnect.Checked;
             Properties.Settings.Default.systemTray = checkboxSystemTray.Checked;
@@ -107,6 +108,11 @@ namespace ffxivDiscordBot
             {
                 pictureBoxUsername.BackColor = colorDialog.Color;
             }
+        }
+
+        private void groupBox2_Enter(object sender, EventArgs e)
+        {
+
         }
     }
 }
