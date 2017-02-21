@@ -13,6 +13,7 @@ namespace ffxivDiscordBot
         private Dictionary<string, int> encounterTable = new Dictionary<string, int>();
         private Dictionary<int, string> classTable = new Dictionary<int, string>();
         private Dictionary<string, string> regionTable = new Dictionary<string, string>();
+        private Dictionary<string, int> reverseClassTable = new Dictionary<string, int>();
 
         private string formatNiceStr(string input)
         {
@@ -110,12 +111,21 @@ namespace ffxivDiscordBot
             string metric = "";
             string metricReadable = "DPS";
             string parsecheck = "";
+            string classpecific = "";
 
-            if(parsed.Count() == 4)
+            if (parsed.Count() == 5)
             {
                 int result;
-                limit = parsed[3];
+                limit = parsed[4];
                 if (!Int32.TryParse(limit, out result)) return "Invalid number of results given";
+            }
+
+            if (parsed.Count() >= 4 && parsed[3].ToLower() != "all")
+            {
+
+                if (!reverseClassTable.ContainsKey(parsed[3].ToLower())) return "Invalid class given.";
+
+                classpecific = "&spec=" + reverseClassTable[parsed[3].ToLower()];
             }
 
             if(parsed.Count() >= 3)
@@ -155,7 +165,9 @@ namespace ffxivDiscordBot
 
             if (!encounterTable.ContainsKey(parsed[0].ToLower())) return "Invalid encounter given";
 
-            string url = "https://www.fflogs.com/v1/rankings/encounter/" + encounterTable[parsed[0]] + "?api_key=" + Properties.Settings.Default.fflogsToken + "&limit=" + limit + regionData + metric;
+            string url = "https://www.fflogs.com/v1/rankings/encounter/" + encounterTable[parsed[0]] + "?api_key=" + Properties.Settings.Default.fflogsToken + "&limit=" + limit + regionData + metric + classpecific;
+
+            Console.WriteLine(url);
 
             HTTPRequest h = new HTTPRequest();
             string response = h.getRequest(url);
@@ -283,6 +295,34 @@ namespace ffxivDiscordBot
             classTable[11] = "Summoner";
             classTable[12] = "Warrior";
             classTable[13] = "White Mage";
+
+            //Intialize reverse class lookup
+            reverseClassTable["astrologian"] = 1;
+            reverseClassTable["astro"] = 1;
+            reverseClassTable["bard"] = 2;
+            reverseClassTable["brd"] = 2;
+            reverseClassTable["blackmage"] = 3;
+            reverseClassTable["blm"] = 3;
+            reverseClassTable["drk"] = 4;
+            reverseClassTable["darkknight"] = 4;
+            reverseClassTable["drg"] = 5;
+            reverseClassTable["dragoon"] = 5;
+            reverseClassTable["machinist"] = 6;
+            reverseClassTable["mch"] = 6;
+            reverseClassTable["mnk"] = 7;
+            reverseClassTable["monk"] = 7;
+            reverseClassTable["nin"] = 8;
+            reverseClassTable["ninja"] = 8;
+            reverseClassTable["pld"] = 9;
+            reverseClassTable["paladin"] = 9;
+            reverseClassTable["scholar"] = 10;
+            reverseClassTable["sch"] = 10;
+            reverseClassTable["smn"] = 11;
+            reverseClassTable["summoner"] = 11;
+            reverseClassTable["war"] = 12;
+            reverseClassTable["warrior"] = 12;
+            reverseClassTable["whm"] = 13;
+            reverseClassTable["whitemage"] = 13;
         }
 
 
