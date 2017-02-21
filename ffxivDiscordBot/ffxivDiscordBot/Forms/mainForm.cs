@@ -37,6 +37,8 @@ namespace ffxivDiscordBot
 
             if (Properties.Settings.Default.usernameColor == Color.Empty) Properties.Settings.Default.usernameColor = Color.DarkBlue;
 
+            if(Properties.Settings.Default.botTrigger == "") Properties.Settings.Default.botTrigger = "~";
+
             textboxStatus.ForeColor = Properties.Settings.Default.textColor;
             textboxStatus.BackColor = Properties.Settings.Default.textBackgroundColor;
 
