@@ -95,7 +95,7 @@ namespace ffxivDiscordBot
 
         private void discordEvent(string opID, JObject message)
         {
-            Console.WriteLine(message);
+            //Console.WriteLine(message);
 
             //Heartbeat sending requires a resend of information from the last packet receieved if present.
             if ((string)message["s"] != null) sequenceNumber = (string)message["s"];
@@ -160,8 +160,43 @@ namespace ffxivDiscordBot
 
                     informFormDiscordMessage(author, message);
 
+                    discordChatEvent(message, author, (string)data["author"]["id"], (string)data["channel_id"]);
 
                     break;
+            }
+        }
+
+        private void discordChatEvent(string message, string author, string authorID, string channel)
+        {
+            //TODO: Move this into its own class?
+
+            string commandcheck;
+            FFLogs ff;
+
+            if (message.Length < 1) return;
+
+            //Check if the first character is the bot trigger
+            if (message.Substring(0, 1) == Properties.Settings.Default.botTrigger)
+            {
+                commandcheck = "encounter ";
+                if((message.Length > 1 + commandcheck.Length) && (message.Substring(1, commandcheck.Length) == commandcheck))
+                {
+                    string arguments = message.Substring(1 + commandcheck.Length);
+
+                    ff = new FFLogs();
+                    sendChatMessage(ff.getEncounterLeaderboard(arguments), false, channel);
+                    return;
+                    
+                }
+
+                commandcheck = "ranking ";
+                if((message.Length > 1 + commandcheck.Length) && (message.Substring(1, commandcheck.Length) == commandcheck))
+                {
+                    string arguments = message.Substring(1 + commandcheck.Length);
+                    ff = new FFLogs();
+                    sendChatMessage(ff.getPlayerRanking(arguments), false, channel);
+                }
+
             }
         }
 

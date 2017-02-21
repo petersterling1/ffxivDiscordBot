@@ -55,6 +55,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Classes\DiscordController.cs" />
+    <Compile Include="Classes\FFLogs.cs" />
     <Compile Include="Classes\HTTPRequest.cs" />
     <Compile Include="Forms\mainForm.cs">
       <SubType>Form</SubType>

@@ -29,8 +29,6 @@ namespace ffxivDiscordBot
 
             discord = new Discord(this);
 
-            Properties.Settings.Default.Reset();
-
             if (Properties.Settings.Default.notificationColor == Color.Empty) Properties.Settings.Default.notificationColor = Color.DarkGreen;
 
             if (Properties.Settings.Default.textColor == Color.Empty) Properties.Settings.Default.textColor = SystemColors.WindowText;
